@@ -66,8 +66,7 @@
       "language": "1041",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
-    },
-    "publish": "never"
+    }
   },
   "devDependencies": {
     "electron": "^28.3.3",
