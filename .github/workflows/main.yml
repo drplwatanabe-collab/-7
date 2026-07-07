@@ -12,17 +12,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20 # 安定版の「20」に変更（24はまだGitHub側で未対応のエラーになるケースがあるため）
+          node-version: 20
           cache: 'npm'
       - name: Install dependencies
         run: npm install
       - name: Build Windows installer
-        run: npm run dist:win
+        # 末尾に -- --publish never を追加してエラーを回避します
+        run: npm run dist:win -- --publish never
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-installer
-          path: dist/*.exe # distフォルダ内のexeファイルを保存
+          path: dist/*.exe
           retention-days: 30
 
   build-mac:
@@ -31,15 +32,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20 # 安定版の「20」に変更
+          node-version: 20
           cache: 'npm'
       - name: Install dependencies
         run: npm install
       - name: Build Mac DMG
-        run: npm run dist:mac
+        # 末尾に -- --publish never を追加してエラーを回避します
+        run: npm run dist:mac -- --publish never
       - name: Upload Mac artifact
         uses: actions/upload-artifact@v4
         with:
           name: mac-dmg
-          path: dist/*.dmg # distフォルダ内のdmgファイルを保存
+          path: dist/*.dmg
           retention-days: 30
